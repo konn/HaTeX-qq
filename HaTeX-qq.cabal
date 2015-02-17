@@ -9,7 +9,7 @@ maintainer:          Hiromi ISHII <konn.jinro_at_gmail.com>
 copyright:           (c) Hiromi ISHII 2015
 category:            Text
 build-type:          Simple
--- extra-source-files:  
+extra-source-files:  Changelog.md
 cabal-version:       >=1.10
 
 source-repository head
