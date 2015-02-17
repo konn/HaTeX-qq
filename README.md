@@ -6,7 +6,7 @@ HaTeX-qq - some description
 
 ## What is this?
 Quasiquote library for HaTeX.
-Both whitespace-sensitive version `hat'` and insensitive version `hat` are provided.
+Both whitespace-sensitive version `hat` and insensitive version `hat'` are provided.
 
 In addition, you can define custom quasiquoter with different antiquoting latex command name by `mkHaTeXQQ`.
 
