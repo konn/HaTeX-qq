@@ -24,11 +24,15 @@ import           Text.LaTeX.Base.Syntax              (LaTeX (..), TeXArg (..))
 -- | HaTeX quasiquoter. antiquote should be of the form of @\hask{...}@.
 -- This quasiquoter is whitespace-sensitive both in input and output.
 -- You need @OverloadedStrings@ language extension for pattern quotes.
+--
+-- Since 0.0.0.0
 hat :: QuasiQuoter
 hat = mkHaTeXQQ "hask" False
 
 -- | Whitespace-insensitive version of 'hat'.
 -- Pattern quote requires @ViewPatterns@ in addition.
+--
+-- Since 0.0.0.0
 hat' :: QuasiQuoter
 hat' = mkHaTeXQQ "hask" True
 
@@ -38,6 +42,8 @@ hat' = mkHaTeXQQ "hask" True
 --
 -- NOTE: Due to TH's stage restriction, you have to use this function
 -- in an other module than you call the resulting quasiquotes.
+--
+-- Since 0.0.0.0
 mkHaTeXQQ :: String -- ^ Name for antiquoting latex command.
           -> Bool   -- ^ Ignore whitespaces?
           -> QuasiQuoter
