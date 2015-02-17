@@ -20,7 +20,7 @@ library
   exposed-modules:     Text.LaTeX.QQ
   other-modules:       Text.LaTeX.QQ.Orphans
   other-extensions:    TemplateHaskell OverloadedStrings
-  build-depends:       base >=4.7 && <4.8,
+  build-depends:       base             >= 4 && <5,
                        uniplate         == 1.6.*,
                        HaTeX            == 3.15.*,
                        antiquoter       == 0.1.*,
