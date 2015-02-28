@@ -3,10 +3,10 @@
 {-# LANGUAGE OverloadedStrings, StandaloneDeriving, TemplateHaskell #-}
 module Text.LaTeX.QQ (hat, hat', mkHaTeXQQ) where
 import Text.LaTeX.QQ.Orphans ()
+import Text.LaTeX.Utils      (stripTeX)
 
 import           Control.Monad                       ((<=<))
 import           Data.Data                           (Typeable)
-import           Data.Generics.Uniplate.Direct       (transform)
 import qualified Data.Text                           as T
 import           Language.Haskell.AntiQuoter         (AntiQuoterPass, (<>>))
 import           Language.Haskell.Meta.Parse.Careful (parseExp, parsePat)
@@ -30,27 +30,29 @@ hat :: QuasiQuoter
 hat = mkHaTeXQQ "hask" False
 
 -- | Whitespace-insensitive version of 'hat'.
--- Pattern quote requires @ViewPatterns@ in addition.
+--   This ignores whtiespace at both sides,
+--   but not deeper inside because this might break
+--   Math spacing.
+--   Pattern quote requires @ViewPatterns@ in addition.
 --
 -- Since 0.0.0.0
 hat' :: QuasiQuoter
 hat' = mkHaTeXQQ "hask" True
 
 -- | General macro to generate quasiquoter for HaTeX.
--- You need @OverloadedStrings@ for pattern quotes,
--- and if the second argument is @True@, you also need @ViewPatterns@.
+-- If the second argument is @True@, you also need @ViewPatterns@.
 --
 -- NOTE: Due to TH's stage restriction, you have to use this function
 -- in an other module than you call the resulting quasiquotes.
 --
 -- Since 0.0.0.0
 mkHaTeXQQ :: String -- ^ Name for antiquoting latex command.
-          -> Bool   -- ^ Ignore whitespaces?
+          -> Bool   -- ^ Ignore whitespaces at both sides? (see 'hat'')
           -> QuasiQuoter
 mkHaTeXQQ cmd triming =
   let trimer | triming   = trim
              | otherwise = id
-      texTrimer | triming   = viewP [| trimTeX |]
+      texTrimer | triming   = viewP [| stripTeX |]
                 | otherwise = id
   in QuasiQuoter { quoteType = const $ error "Type quoter not defined"
                  , quoteDec  = const $ error "Dec quoter not defined"
@@ -86,21 +88,6 @@ antiTextE = Just . flip sigE [t| T.Text |] . appE [| T.pack |] .
 
 antiTextP :: T.Text -> Maybe PatQ
 antiTextP = Just . litP . stringL . T.unpack
-
-trimTeX :: LaTeX -> LaTeX
-trimTeX = transform trimTeX0
-
-trimTeX0 :: LaTeX -> LaTeX
-trimTeX0 (TeXComment _) = TeXEmpty
-trimTeX0 (TeXRaw t) =
-  let t' = T.strip t
-  in if T.null t'
-     then TeXEmpty
-     else TeXRaw t'
-trimTeX0 TeXEmpty = TeXEmpty
-trimTeX0 (TeXSeq TeXEmpty r) = r
-trimTeX0 (TeXSeq l TeXEmpty) = l
-trimTeX0 t = t
 
 antiP0 :: String -> LaTeX -> Maybe PatQ
 antiP0 cmd (TeXComm name [FixArg src]) | cmd == name =

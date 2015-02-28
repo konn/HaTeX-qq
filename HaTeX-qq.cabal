@@ -1,5 +1,5 @@
 name:                HaTeX-qq
-version:             0.0.1.0
+version:             0.0.1.1
 synopsis:            Quasiquoters for HaTeX
 description:         Quasiquoters for HaTeX
 license:             BSD3
