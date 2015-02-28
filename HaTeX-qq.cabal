@@ -1,5 +1,5 @@
 name:                HaTeX-qq
-version:             0.0.0.0
+version:             0.0.1.0
 synopsis:            Quasiquoters for HaTeX
 description:         Quasiquoters for HaTeX
 license:             BSD3
@@ -17,7 +17,7 @@ source-repository head
   location: git://github.com/konn/HaTeX-qq.git
 
 library
-  exposed-modules:     Text.LaTeX.QQ
+  exposed-modules:     Text.LaTeX.QQ Text.LaTeX.Utils
   other-modules:       Text.LaTeX.QQ.Orphans
   other-extensions:    TemplateHaskell OverloadedStrings
   build-depends:       base             >= 4 && <5,
