@@ -18,10 +18,8 @@ source-repository head
 
 library
   exposed-modules:     Text.LaTeX.QQ Text.LaTeX.Utils
-  other-modules:       Text.LaTeX.QQ.Orphans
   other-extensions:    TemplateHaskell OverloadedStrings
   build-depends:       base
-                     , uniplate
                      , HaTeX            >= 3.17.2.0
                      , antiquoter
                      , template-haskell

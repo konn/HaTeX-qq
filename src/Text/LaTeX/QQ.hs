@@ -2,7 +2,6 @@
 {-# LANGUAGE MultiParamTypeClasses, NoMonomorphismRestriction       #-}
 {-# LANGUAGE OverloadedStrings, StandaloneDeriving, TemplateHaskell #-}
 module Text.LaTeX.QQ (hat, hat', mkHaTeXQQ) where
-import Text.LaTeX.QQ.Orphans ()
 import Text.LaTeX.Utils      (stripTeX)
 
 import           Control.Monad                       ((<=<))
