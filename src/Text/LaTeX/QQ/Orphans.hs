@@ -7,14 +7,6 @@ import Data.Generics.Uniplate.Direct ((|-), (||*), (||+))
 import Text.LaTeX.Base.Syntax        (LaTeX (..), MathType (..), Measure (..))
 import Text.LaTeX.Base.Syntax        (TeXArg (..))
 
-deriving instance Data LaTeX
-deriving instance Data MathType
-deriving instance Typeable MathType
-deriving instance Data Measure
-deriving instance Typeable Measure
-deriving instance Data TeXArg
-deriving instance Typeable TeXArg
-
 instance Biplate TeXArg LaTeX where
   biplate (FixArg t) = plate FixArg |* t
   biplate (OptArg t) = plate OptArg |* t
