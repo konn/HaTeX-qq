@@ -2,23 +2,23 @@
 {-# LANGUAGE MultiParamTypeClasses, NoMonomorphismRestriction       #-}
 {-# LANGUAGE OverloadedStrings, StandaloneDeriving, TemplateHaskell #-}
 module Text.LaTeX.QQ (hat, hat', mkHaTeXQQ) where
-import Text.LaTeX.Utils      (stripTeX)
+import Text.LaTeX.Utils (stripTeX)
 
-import           Control.Monad                       ((<=<))
-import           Data.Data                           (Typeable)
-import qualified Data.Text                           as T
-import           Language.Haskell.AntiQuoter         (AntiQuoterPass, (<>>))
-import           Language.Haskell.Meta.Parse.Careful (parseExp, parsePat)
-import           Language.Haskell.TH                 (Exp, ExpQ, Pat, PatQ)
-import           Language.Haskell.TH                 (stringL)
-import           Language.Haskell.TH                 (litE, litP, sigE)
-import           Language.Haskell.TH                 (appE, viewP)
-import           Language.Haskell.TH.Quote           (QuasiQuoter (..))
-import           Language.Haskell.TH.Quote           (dataToExpQ, dataToPatQ)
-import           Text.LaTeX                          (texy)
-import           Text.LaTeX.Base.Parser              (parseLaTeX)
-import           Text.LaTeX.Base.Pretty              (prettyLaTeX)
-import           Text.LaTeX.Base.Syntax              (LaTeX (..), TeXArg (..))
+import           Control.Monad               ((<=<))
+import           Data.Data                   (Typeable)
+import qualified Data.Text                   as T
+import           Language.Haskell.AntiQuoter (AntiQuoterPass, (<>>))
+import           Language.Haskell.Meta.Parse (parseExp, parsePat)
+import           Language.Haskell.TH         (Exp, ExpQ, Pat, PatQ)
+import           Language.Haskell.TH         (stringL)
+import           Language.Haskell.TH         (litE, litP, sigE)
+import           Language.Haskell.TH         (appE, viewP)
+import           Language.Haskell.TH.Quote   (QuasiQuoter (..))
+import           Language.Haskell.TH.Quote   (dataToExpQ, dataToPatQ)
+import           Text.LaTeX                  (texy)
+import           Text.LaTeX.Base.Parser      (parseLaTeX)
+import           Text.LaTeX.Base.Pretty      (prettyLaTeX)
+import           Text.LaTeX.Base.Syntax      (LaTeX (..), TeXArg (..))
 
 -- | HaTeX quasiquoter. antiquote should be of the form of @\hask{...}@.
 -- This quasiquoter is whitespace-sensitive both in input and output.
@@ -65,8 +65,8 @@ trim = T.unpack . T.strip . T.pack
 
 texExp :: Monad m => String -> m LaTeX
 texExp src = case parseLaTeX (T.pack src) of
-  Right t -> return t
-  Left err  -> error $ "malformed latex: " ++ show err
+  Right t  -> return t
+  Left err -> error $ "malformed latex: " ++ show err
 
 antiE :: Typeable e => String -> AntiQuoterPass e Exp
 antiE cmd = antiTextE <>> antiE0 cmd <>> const Nothing

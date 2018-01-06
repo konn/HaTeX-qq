@@ -1,0 +1,9 @@
+resolver: lts-10.2
+packages:
+- '.'
+extra-deps:
+- antiquoter-0.1.1.0
+
+flags: {}
+extra-package-dbs: []
+pvp-bounds: both
